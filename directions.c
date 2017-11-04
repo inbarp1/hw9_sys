@@ -2,7 +2,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <dirent.h>
-#include <sys/types.h>
+#include <sys/stat.h>
 int get_da_size(char* p){
   DIR *d = opendir(p);
   struct dirent* entry;
@@ -21,20 +21,20 @@ int get_da_size(char* p){
 }
     
 int main(){
-  DIR *d = opendir(p);
+  DIR *d = opendir(".");
   struct dirent *f;
   struct stat buffer;
   printf("\nStatistics for directory:\n");
-  printf("Total directory size: %d", get_da_size(".")) ;
-  printf("Directories:\n");
+  printf("\nTotal directory size: %d", get_da_size(".")) ;
+  printf("\nDirectories:\n");
   d = opendir(".");
   while(f = readdir(d)){
-    if(f->d_type = DT_DIR){
+    if(f->d_type ==DT_DIR){
       printf("%s\n", f->d_name);
     }
   }
   d=opendir(".");
-  printf("Files:\n");
+  printf("\nFiles:\n");
   while(f=readdir(d)){
     if(f->d_type ==DT_REG){
       stat(f ->d_name, &buffer);
